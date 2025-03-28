@@ -1,1 +1,8 @@
-
+# Data check
+import pandas as pd 
+df = pd.read_csv('/content/bank_transactions.csv')
+df.head()
+df.isnull().sum()
+df.isna().sum()/len(df)*100
+df.dtypes
+df['CustLocation'].describe()
