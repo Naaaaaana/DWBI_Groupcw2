@@ -5,7 +5,7 @@
 # Data Understanding：
 # 1. Identify and remove null values;
 
-[3/31 Nana]
+[31/03 Nana]
 #Missing value percentage：
 CustomerDOB	0.32%
 CustGender	0.10%
@@ -24,7 +24,7 @@ CustAccountBalance	0.23%
    
 # 2. Identify and remove invalid transaction amount values;
 
-[03/31 Nana]
+[31/03 Nana]
 #Then, there are lots of age and transaction error there.
 #Add new feature 'Age' into df.
 
@@ -54,15 +54,21 @@ df_Fact1_clean = df_Fact1[(df_Fact1['Age'] >= 1) & (df_Fact1['Age'] <= 100) & (d
 
    
    
-3. Identify and remove invalid age values;
+# 3. Identify and remove invalid age values;
 
-[03/31 Nana]
+[31/03 Nana]
 #same with section 2
 
 
 
  
-4. Display the 5 top Locations where the maximum number of transactions occurre.
+# 4. Display the 5 top Locations where the maximum number of transactions occurre.
+
+[31/03 Nana]
+#There are some problems of TransactionDate
+#some of that after 2025 and between 2025-2029
+#some of that before the consumer was born
+
 
 
 
@@ -70,14 +76,14 @@ df_Fact1_clean = df_Fact1[(df_Fact1['Age'] >= 1) & (df_Fact1['Age'] <= 100) & (d
 
 
 # Perform RFM Segmentation:
-5. Write a query to define and calculate the RFM values per Customer;
+# 5. Write a query to define and calculate the RFM values per Customer;
 
 
 
 
 
 
-6. Check the distribution of Recency, Frequency & Monetary Values;
+# 6. Check the distribution of Recency, Frequency & Monetary Values;
 
 
 
@@ -85,7 +91,7 @@ df_Fact1_clean = df_Fact1[(df_Fact1['Age'] >= 1) & (df_Fact1['Age'] <= 100) & (d
 
 
    
-7. Briefly discuss the issue of skewness and remove skew from the dat
+# 7. Briefly discuss the issue of skewness and remove skew from the dat
 
 
 
