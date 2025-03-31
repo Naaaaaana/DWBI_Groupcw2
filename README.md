@@ -69,7 +69,22 @@ df_Fact1_clean = df_Fact1[(df_Fact1['Age'] >= 1) & (df_Fact1['Age'] <= 100) & (d
 #some of that after 2025 and between 2025-2029
 #some of that before the consumer was born
 
+#convert TransectionDate to datetime type
+df_Fact1_clean['TransactionDate'] = pd.to_datetime(df_Fact1_clean['TransactionDate'], dayfirst=True, errors='coerce')
 
+#filter Transectiondate error
+future_transactions = df_Fact1_clean[df_Fact1_clean['TransactionDate'] >= '2025-01-01']
+pre_birth_transactions = df_Fact1_clean[df_Fact1_clean['TransactionDate'] <= df_Fact1_clean['CustomerDOB']]
+
+#Drop transactiondate error
+invalid_transactions = (df_Fact1_clean['TransactionDate'] >= '2025-01-01') | \
+                       (df_Fact1_clean['TransactionDate'] <= df_Fact1_clean['CustomerDOB'])
+
+df_Fact1_clean1 = df_Fact1_clean[~invalid_transactions]
+
+#Final data shape((879621, 10))
+
+#Cleaning completed, we can rank location then.
 
 
 
