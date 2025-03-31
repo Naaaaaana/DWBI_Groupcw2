@@ -86,6 +86,141 @@ df_Fact1_clean1 = df_Fact1_clean[~invalid_transactions]
 
 #Cleaning completed, we can rank location then.
 
+#check top 100 cities
+top_100 = df_Fact1_clean1['CustLocation'].value_counts().head(100)
+print(top_100)
+#output
+CustLocation
+MUMBAI               86281
+BANGALORE            70687
+NEW DELHI            66170
+GURGAON              62749
+DELHI                60478
+NOIDA                28598
+CHENNAI              23297
+PUNE                 21992
+HYDERABAD            19797
+THANE                18895
+KOLKATA              15292
+GHAZIABAD            12712
+NAVI MUMBAI          10400
+AHMEDABAD            10036
+FARIDABAD             9511
+JAIPUR                8723
+CHANDIGARH            7954
+LUCKNOW               6657
+MOHALI                5244
+SURAT                 4502
+NASHIK                4224
+LUDHIANA              3906
+VISAKHAPATNAM         3521
+DEHRADUN              3420
+INDORE                3248
+AMRITSAR              3058
+KANPUR                3019
+MEERUT                3011
+VADODARA              3009
+NAGPUR                2880
+AGRA                  2829
+GREATER NOIDA         2698
+COIMBATORE            2667
+AURANGABAD            2644
+RANGA REDDY           2614
+PANCHKULA             2578
+GUNTUR                2531
+GUWAHATI              2445
+JALANDHAR             2380
+BHOPAL                2283
+PATNA                 2217
+UDAIPUR               2119
+REWARI                2018
+RANCHI                1982
+BENGALURU             1885
+HOWRAH                1876
+PATIALA               1826
+ALWAR                 1797
+ERNAKULAM             1736
+NORTH 24 PARGANAS     1721
+SONIPAT               1711
+ALLAHABAD             1674
+PANIPAT               1655
+SECUNDERABAD          1654
+BAMBOLIM              1630
+ZIRAKPUR              1515
+SILIGURI              1503
+KOLHAPUR              1451
+RAJKOT                1445
+KANGRA                1418
+BAREILLY              1406
+ALIGARH               1390
+RAIPUR                1372
+JAMSHEDPUR            1343
+WARANGAL              1293
+KARNAL                1287
+AMBALA                1267
+MANGALORE             1230
+KOTTAYAM              1205
+KHARAR                1198
+SAHARANPUR            1178
+MORADABAD             1176
+SAS NAGAR             1167
+HOSUR                 1155
+SHIMLA                1106
+VARANASI              1105
+KOTA                  1087
+BHUBANESHWAR          1080
+BURDWAN               1076
+VAPI                  1071
+JAMMU                 1054
+JODHPUR               1045
+SALEM                 1013
+NELLORE               1010
+VELLORE               1002
+ROHTAK                 989
+BATHINDA               975
+RUDRAPUR               971
+VIJAYAWADA             971
+BILASPUR               970
+GANDHINAGAR            965
+GORAKHPUR              956
+KOCHI                  919
+HOOGHLY                902
+SOUTH 24 PARGANAS      895
+YAMUNANAGAR            887
+DHANBAD                885
+KARIMNAGAR             880
+KANCHEEPURAM           873
+THRISSUR               847
+Name: count, dtype: int64
+
+#check transactions number of top 100， that is almost 80% of total data
+total_customers = top_100_df['TransactionCounts'].sum()
+print(total_customers)
+#output: 686974
+
+#according to cities list check, there are two cities name repeated. They are "BANGALORE（70687）" & "BENGALURU（1885）" where are New and old names
+#Unify the same city name
+df_Fact1_clean2['CustLocation'] = df_Fact1_clean2['CustLocation'].replace('BENGALURU', 'BANGALORE')
+
+#Display the 5 top Locations
+query = """
+SELECT CustLocation, COUNT(*) AS transaction_count
+FROM transactions
+GROUP BY CustLocation
+ORDER BY transaction_count DESC
+LIMIT 5
+"""
+
+top_locations = pd.read_sql_query(query, conn)
+print(top_locations)
+
+#output
+  CustLocation  transaction_count
+0       MUMBAI              86281
+1    BANGALORE              72572
+2    NEW DELHI              66170
+3      GURGAON              62749
+4        DELHI              60478
 
 
 
