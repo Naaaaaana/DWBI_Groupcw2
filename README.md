@@ -3,26 +3,66 @@
 
 # Task A 
 # Data Understanding：
-1. Identify and remove null values;
+# 1. Identify and remove null values;
+
+[3/31 Nana]
+Missing value percentage：
+CustomerDOB	0.32%
+CustGender	0.10%
+CustLocation	0.01%
+CustAccountBalance	0.23%
+
+The percentage is not really high. So I suggest to delete them directly.
+The amount after deletion is：(1041614, 9)
+Deleted data is less than 0.7% of the total data size. （origional data size:(1048567, 9) ）
+
+
 
 
 
 
    
-3. Identify and remove invalid transaction amount values;
+# 2. Identify and remove invalid transaction amount values;
 
+[03/31 Nana]
+#Then, there are lots of age and transaction error there.
+#Add new feature 'Age' into df.
+
+df_Fact1['CustomerDOB'] = pd.to_datetime(df_Fact1['CustomerDOB'], dayfirst=True, errors='coerce')
+current_year = 2025
+df_Fact1['Age'] = current_year - df_Fact1['CustomerDOB'].dt.year
+
+
+#Check age and transaction error:
+age_error_amount = df_Fact1[(df_Fact1['Age'] < 1) | (df_Fact1['Age'] > 100)].shape[0]
+print(f'age_error_amount: {age_error_amount}')
+
+transaction_error_amount = df_Fact1[df_Fact1['TransactionAmount (INR)'] <= 1].shape[0]
+print(f'transaction_error_amount: {transaction_error_amount}')
+
+#Output:
+age_error_amount: 161082
+transaction_error_amount: 5704
+
+#According to requirements of assignment, I removed them.
+#Remove age and transaction error
+df_Fact1_clean = df_Fact1[(df_Fact1['Age'] >= 1) & (df_Fact1['Age'] <= 100) & (df_Fact1['TransactionAmount (INR)'] >= 1)]
+
+#After clean:
+(879665, 10)
 
 
    
    
-4. Identify and remove invalid age values;
+3. Identify and remove invalid age values;
 
-
+[03/31 Nana]
+#same with section 2
 
 
 
  
-5. Display the 5 top Locations where the maximum number of transactions occurre.
+4. Display the 5 top Locations where the maximum number of transactions occurre.
 
 
 
