@@ -6,15 +6,15 @@
 # 1. Identify and remove null values;
 
 [3/31 Nana]
-Missing value percentage：
+#Missing value percentage：
 CustomerDOB	0.32%
 CustGender	0.10%
 CustLocation	0.01%
 CustAccountBalance	0.23%
 
-The percentage is not really high. So I suggest to delete them directly.
-The amount after deletion is：(1041614, 9)
-Deleted data is less than 0.7% of the total data size. （origional data size:(1048567, 9) ）
+#The percentage is not really high. So I suggest to delete them directly.
+#The amount after deletion is：(1041614, 9)
+#Deleted data is less than 0.7% of the total data size. （origional data size:(1048567, 9) ）
 
 
 
