@@ -259,7 +259,7 @@ print(top_locations)
 ## Perform RFM Segmentation:
 ### 5. Write a query to define and calculate the RFM values per Customer;
 
-[01/04 Nana]
+[01/04 Nana]  
 **#Dedine RFM in report**
 **#Set analysis date**
 **#Calculate Recency，Frequency，Monetary**
@@ -285,6 +285,68 @@ rfm.head(10)
 | C1010037   | 74      | 1         | 19680.00 |
 | C1010038   | 45      | 1         | 100.00   |
 
+
+### 6. Check the distribution of Recency, Frequency & Monetary Values;
+
+[01/04 Nana]  
+```python
+#Check Distribution  
+import matplotlib.pyplot as plt
+
+fig, axs = plt.subplots(1, 3, figsize=(18, 6))
+
+# Recency  
+axs[0].hist(rfm['Recency'], bins=30)  
+axs[0].set_title('Recency')  
+axs[0].set_xlabel('Days since last transaction')  
+axs[0].set_ylabel('Number of customers')  
+
+# Frequency  
+axs[1].hist(rfm['Frequency'], bins=30)  
+axs[1].set_title('Frequency')  
+axs[1].set_xlabel('Number of transactions')  
+axs[1].set_ylabel('Number of customers')  
+
+# Monetary  
+axs[2].hist(rfm['Monetary'], bins=30)  
+axs[2].set_title('Monetary')  
+axs[2].set_xlabel('Total transaction amount (INR)')  
+axs[2].set_ylabel('Number of customers')  
+
+plt.tight_layout()  
+plt.show()  
+```  
+
+```python
+#Check Distribution after remove skew
+
+fig, axs = plt.subplots(1, 3, figsize=(18, 5))
+
+# Recency  
+axs[0].hist(rfm_boxcox['Recency'], bins=30)  
+axs[0].set_title('Recency (Box-Cox Transformed)')  
+axs[0].set_xlabel('Transformed Recency')  
+axs[0].set_ylabel('Number of Customers')  
+
+# Frequency  
+axs[1].hist(rfm_boxcox['Frequency'], bins=30)  
+axs[1].set_title('Frequency (Box-Cox Transformed)')  
+axs[1].set_xlabel('Transformed Frequency')  
+axs[1].set_ylabel('Number of Customers')  
+
+# Monetary  
+axs[2].hist(rfm_boxcox['Monetary'], bins=30)  
+axs[2].set_title('Monetary (Box-Cox Transformed)')  
+axs[2].set_xlabel('Transformed Monetary')  
+axs[2].set_ylabel('Number of Customers')  
+
+plt.tight_layout()  
+plt.show()  
+```  
+   
+### 7. Briefly discuss the issue of skewness and remove skew from the dat
+
+[01/04 Nana]  
 **#Removed skew**
 ```python
 from scipy import stats
@@ -296,17 +358,6 @@ rfm_boxcox = pd.DataFrame({
     'Monetary': stats.boxcox(rfm['Monetary'] + 1)[0]  
 })
 ```
-### 6. Check the distribution of Recency, Frequency & Monetary Values;
-
-
-
-
-
-
-   
-### 7. Briefly discuss the issue of skewness and remove skew from the dat
-
-
 
 
 
