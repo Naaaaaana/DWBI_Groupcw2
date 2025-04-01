@@ -225,9 +225,11 @@ print(top_locations)
 
 
 
-# Perform RFM Segmentation:
-# 5. Write a query to define and calculate the RFM values per Customer;
+## Perform RFM Segmentation:
+### 5. Write a query to define and calculate the RFM values per Customer;
 
+[01/04 Nana]
+#Dedine RFM in report
 
 
 
