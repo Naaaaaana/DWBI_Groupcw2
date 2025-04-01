@@ -30,7 +30,7 @@ CustAccountBalance	0.23%
 **#Then, there are lots of age and transaction error there.  
 #Add new feature 'Age' into df.**  
 
-<pre lang="md"> ```python df_Fact1['CustomerDOB'] = pd.to_datetime(df_Fact1['CustomerDOB'], dayfirst=True, errors='coerce') current_year = 2025 df_Fact1['Age'] = current_year - df_Fact1['CustomerDOB'].dt.year ``` </pre>
+```python df_Fact1['CustomerDOB'] = pd.to_datetime(df_Fact1['CustomerDOB'], dayfirst=True, errors='coerce') current_year = 2025 df_Fact1['Age'] = current_year - df_Fact1['CustomerDOB'].dt.year ```
 
 
 **#Check age and transaction error:**  
