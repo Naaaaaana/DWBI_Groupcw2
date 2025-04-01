@@ -261,11 +261,41 @@ print(top_locations)
 
 [01/04 Nana]
 **#Dedine RFM in report**
+**#Set analysis date**
+**#Calculate Recency，Frequency，Monetary**
+```python
+rfm = df_Fact1_clean2.groupby('CustomerID').agg({  
+    'TransactionDate': lambda x: (analysis_date - x.max()).days,    
+    'TransactionID': 'count',                                     
+    'TransactionAmount (INR)': 'sum'                              
+}).reset_index()
+```  
+**#output**
+rfm.head(10)
+| CustomerID | Recency | Frequency | Monetary |
+|------------|---------|-----------|----------|
+| C1010011   | 26      | 2         | 5106.00  |
+| C1010012   | 69      | 1         | 1499.00  |
+| C1010014   | 76      | 2         | 1455.00  |
+| C1010018   | 37      | 1         | 30.00    |
+| C1010028   | 54      | 1         | 557.00   |
+| C1010031   | 79      | 2         | 1864.00  |
+| C1010035   | 56      | 2         | 750.00   |
+| C1010036   | 57      | 1         | 208.00   |
+| C1010037   | 74      | 1         | 19680.00 |
+| C1010038   | 45      | 1         | 100.00   |
 
+**#Removed skew**
+```python
+from scipy import stats
 
-
-
-
+rfm_boxcox = pd.DataFrame({  
+    'CustomerID': rfm['CustomerID'],  
+    'Recency': stats.boxcox(rfm['Recency'] + 1)[0],  
+    'Frequency': stats.boxcox(rfm['Frequency'])[0],  
+    'Monetary': stats.boxcox(rfm['Monetary'] + 1)[0]  
+})
+```
 ### 6. Check the distribution of Recency, Frequency & Monetary Values;
 
 
