@@ -7,15 +7,15 @@
 
 [31/03 Nana]
 
-#Missing value percentage：  
+**#Missing value percentage：**  
 CustomerDOB	0.32%  
 CustGender	0.10%  
 CustLocation	0.01%  
 CustAccountBalance	0.23%  
 
-#The percentage is not really high. So I suggest to delete them directly.  
-#The amount after deletion is：(1041614, 9)  
-#Deleted data is less than 0.7% of the total data size. （origional data size:(1048567, 9) ）  
+**#The percentage is not really high. So I suggest to delete them directly.**  
+**#The amount after deletion is：(1041614, 9)**  
+**#Deleted data is less than 0.7% of the total data size. （origional data size:(1048567, 9) ）**  
 
 
 
@@ -27,30 +27,30 @@ CustAccountBalance	0.23%
 
 [31/03 Nana]
 
-#Then, there are lots of age and transaction error there.  
-#Add new feature 'Age' into df.  
+**#Then, there are lots of age and transaction error there.  
+#Add new feature 'Age' into df.**  
 
 df_Fact1['CustomerDOB'] = pd.to_datetime(df_Fact1['CustomerDOB'], dayfirst=True, errors='coerce')  
 current_year = 2025  
 df_Fact1['Age'] = current_year - df_Fact1['CustomerDOB'].dt.year  
 
 
-#Check age and transaction error:  
+**#Check age and transaction error:**  
 age_error_amount = df_Fact1[(df_Fact1['Age'] < 1) | (df_Fact1['Age'] > 100)].shape[0]  
 print(f'age_error_amount: {age_error_amount}')  
 
 transaction_error_amount = df_Fact1[df_Fact1['TransactionAmount (INR)'] <= 1].shape[0]  
 print(f'transaction_error_amount: {transaction_error_amount}')  
 
-#Output:  
+**#Output:**  
 age_error_amount: 161082  
 transaction_error_amount: 5704  
 
-#According to requirements of assignment, I removed them.  
-#Remove age and transaction error  
+**#According to requirements of assignment, I removed them.**  
+**#Remove age and transaction error**  
 df_Fact1_clean = df_Fact1[(df_Fact1['Age'] >= 1) & (df_Fact1['Age'] <= 100) & (df_Fact1['TransactionAmount (INR)'] >= 0.01)]  
 
-#After clean:  
+**#After clean:**  
 (879905, 10)
 
 
@@ -60,7 +60,7 @@ df_Fact1_clean = df_Fact1[(df_Fact1['Age'] >= 1) & (df_Fact1['Age'] <= 100) & (d
 
 [31/03 Nana]
 
-#same with section 2  
+**#same with section 2**  
 
 
 
@@ -68,31 +68,31 @@ df_Fact1_clean = df_Fact1[(df_Fact1['Age'] >= 1) & (df_Fact1['Age'] <= 100) & (d
 ### 4. Display the 5 top Locations where the maximum number of transactions occurre.
 
 [31/03 Nana]  
-#There are some problems of TransactionDate  
-#some of that after 2025 and between 2025-2029  
-#some of that before the consumer was born  
+**#There are some problems of TransactionDate**  
+**#some of that after 2025 and between 2025-2029**  
+**#some of that before the consumer was born**  
 
-#convert TransectionDate to datetime type  
+**#convert TransectionDate to datetime type**  
 df_Fact1_clean['TransactionDate'] = pd.to_datetime(df_Fact1_clean['TransactionDate'], dayfirst=True, errors='coerce')  
 
-#filter Transectiondate error  
+**#filter Transectiondate error**  
 future_transactions = df_Fact1_clean[df_Fact1_clean['TransactionDate'] >= '2025-01-01']  
 pre_birth_transactions = df_Fact1_clean[df_Fact1_clean['TransactionDate'] <= df_Fact1_clean['CustomerDOB']]  
 
-#Drop transactiondate error  
+**#Drop transactiondate error**  
 invalid_transactions = (df_Fact1_clean['TransactionDate'] >= '2025-01-01') | \  
                        (df_Fact1_clean['TransactionDate'] <= df_Fact1_clean['CustomerDOB'])  
 
 df_Fact1_clean1 = df_Fact1_clean[~invalid_transactions]  
 
-#Final data shape((879621, 10))  
+**#Final data shape((879621, 10))**  
 
-#Cleaning completed, we can rank location then.  
+**#Cleaning completed, we can rank location then.**  
 
-#check top 100 cities  
+**#check top 100 cities**  
 top_100 = df_Fact1_clean1['CustLocation'].value_counts().head(100)  
 print(top_100)  
-#output  
+**#output**  
 CustLocation  
 MUMBAI               86281  
 BANGALORE            70687  
@@ -196,16 +196,16 @@ KANCHEEPURAM           873
 THRISSUR               847  
 Name: count, dtype: int64  
 
-#check transactions number of top 100， that is almost 80% of total data  
+**#check transactions number of top 100， that is almost 80% of total data**  
 total_customers = top_100_df['TransactionCounts'].sum()  
 print(total_customers)  
-#output: 687151  
+**#output: 687151**  
 
-#according to cities list check, there are two cities name repeated. They are "BANGALORE（70687）" & "BENGALURU（1885）" where are New and old names  
-#Unify the same city name  
+**#according to cities list check, there are two cities name repeated. They are "BANGALORE（70687）" & "BENGALURU（1885）" where are New and old names**  
+**#Unify the same city name**  
 df_Fact1_clean2['CustLocation'] = df_Fact1_clean2['CustLocation'].replace('BENGALURU', 'BANGALORE')  
 
-#Display the 5 top Locations  
+**#Display the 5 top Locations**  
 query = """  
 SELECT CustLocation, COUNT(*) AS transaction_count  
 FROM transactions  
@@ -217,7 +217,7 @@ LIMIT 5
 top_locations = pd.read_sql_query(query, conn)  
 print(top_locations)  
 
-#output  
+**#output**  
   CustLocation  transaction_count  
 0       MUMBAI              86281  
 1    BANGALORE              72572  
@@ -232,7 +232,7 @@ print(top_locations)
 ### 5. Write a query to define and calculate the RFM values per Customer;
 
 [01/04 Nana]
-#Dedine RFM in report
+**#Dedine RFM in report**
 
 
 
