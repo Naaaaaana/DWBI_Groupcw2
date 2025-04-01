@@ -316,8 +316,6 @@ axs[2].set_ylabel('Number of customers')
 plt.tight_layout()  
 plt.show()  
 ```
-**#output**  
-[output](https://private-user-images.githubusercontent.com/185700517/429111414-ba278c32-d7d1-42b9-8a8f-5cd12e2802d5.png)
 
 ```python
 #Check Distribution after remove skew
