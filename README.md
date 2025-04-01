@@ -34,7 +34,9 @@ CustAccountBalance	0.23%
 
 
 **#Check age and transaction error:**  
-<pre lang="md"> ```python age_error_amount = df_Fact1[(df_Fact1['Age'] < 1) | (df_Fact1['Age'] > 100)].shape[0] print(f'age_error_amount: {age_error_amount}') ``` </pre>  
+```python
+age_error_amount = df_Fact1[(df_Fact1['Age'] < 1) | (df_Fact1['Age'] > 100)].shape[0]  
+print(f'age_error_amount: {age_error_amount}')
 
 transaction_error_amount = df_Fact1[df_Fact1['TransactionAmount (INR)'] <= 1].shape[0]  
 print(f'transaction_error_amount: {transaction_error_amount}')  
