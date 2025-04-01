@@ -31,7 +31,9 @@ CustAccountBalance	0.23%
 #Add new feature 'Age' into df.**  
 
 ```python 
-df_Fact1['CustomerDOB'] = pd.to_datetime(df_Fact1['CustomerDOB'], dayfirst=True, errors='coerce') current_year = 2025 df_Fact1['Age'] = current_year - df_Fact1['CustomerDOB'].dt.year
+df_Fact1['CustomerDOB'] = pd.to_datetime(df_Fact1['CustomerDOB'], dayfirst=True, errors='coerce')  
+current_year = 2025  
+df_Fact1['Age'] = current_year - df_Fact1['CustomerDOB'].dt.year  
 ```
 
 
