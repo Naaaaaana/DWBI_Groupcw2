@@ -250,6 +250,14 @@ print(top_locations)
 3      GURGAON              62749  
 4        DELHI              60478  
 
+|  | CustLocation | transaction_count |
+|------|------|------|
+| 0 | MUMBAI | 86281 |
+| 1 | BANGALORE | 72572 |
+| 2 | NEW DELHI | 66170 |
+| 3 | GURGAON | 62749 |
+| 4 | DELHI | 60478 |
+
 
 
 
