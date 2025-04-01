@@ -54,7 +54,9 @@ transaction_error_amount: 5704
 
 **#According to requirements of assignment, I removed them.**  
 **#Remove age and transaction error**  
-df_Fact1_clean = df_Fact1[(df_Fact1['Age'] >= 1) & (df_Fact1['Age'] <= 100) & (df_Fact1['TransactionAmount (INR)'] >= 0.01)]  
+```python
+df_Fact1_clean = df_Fact1[(df_Fact1['Age'] >= 1) & (df_Fact1['Age'] <= 100) & (df_Fact1['TransactionAmount (INR)'] >= 0.01)]
+```
 
 **#After clean:**  
 (879905, 10)
