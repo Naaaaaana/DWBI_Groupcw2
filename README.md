@@ -43,8 +43,10 @@ age_error_amount = df_Fact1[(df_Fact1['Age'] < 1) | (df_Fact1['Age'] > 100)].sha
 print(f'age_error_amount: {age_error_amount}')
 ```
 
+```python
 transaction_error_amount = df_Fact1[df_Fact1['TransactionAmount (INR)'] <= 1].shape[0]  
-print(f'transaction_error_amount: {transaction_error_amount}')  
+print(f'transaction_error_amount: {transaction_error_amount}')
+```
 
 **#Output:**  
 age_error_amount: 161082  
@@ -77,25 +79,36 @@ df_Fact1_clean = df_Fact1[(df_Fact1['Age'] >= 1) & (df_Fact1['Age'] <= 100) & (d
 **#some of that before the consumer was born**  
 
 **#convert TransectionDate to datetime type**  
-df_Fact1_clean['TransactionDate'] = pd.to_datetime(df_Fact1_clean['TransactionDate'], dayfirst=True, errors='coerce')  
+```python
+df_Fact1_clean['TransactionDate'] = pd.to_datetime(df_Fact1_clean['TransactionDate'], dayfirst=True, errors='coerce')
+```
 
 **#filter Transectiondate error**  
+```python
 future_transactions = df_Fact1_clean[df_Fact1_clean['TransactionDate'] >= '2025-01-01']  
-pre_birth_transactions = df_Fact1_clean[df_Fact1_clean['TransactionDate'] <= df_Fact1_clean['CustomerDOB']]  
+pre_birth_transactions = df_Fact1_clean[df_Fact1_clean['TransactionDate'] <= df_Fact1_clean['CustomerDOB']]
+```
 
 **#Drop transactiondate error**  
+```python
 invalid_transactions = (df_Fact1_clean['TransactionDate'] >= '2025-01-01') | \  
-                       (df_Fact1_clean['TransactionDate'] <= df_Fact1_clean['CustomerDOB'])  
+                       (df_Fact1_clean['TransactionDate'] <= df_Fact1_clean['CustomerDOB'])
+```
 
-df_Fact1_clean1 = df_Fact1_clean[~invalid_transactions]  
+```python
+df_Fact1_clean1 = df_Fact1_clean[~invalid_transactions]
+```
 
 **#Final data shape((879621, 10))**  
 
 **#Cleaning completed, we can rank location then.**  
 
 **#check top 100 cities**  
+```python
 top_100 = df_Fact1_clean1['CustLocation'].value_counts().head(100)  
-print(top_100)  
+print(top_100)
+```
+
 **#output**  
 CustLocation  
 MUMBAI               86281  
@@ -201,26 +214,32 @@ THRISSUR               847
 Name: count, dtype: int64  
 
 **#check transactions number of top 100， that is almost 80% of total data**  
+```python
 total_customers = top_100_df['TransactionCounts'].sum()  
-print(total_customers)  
+print(total_customers)
+```  
 **#output: 687151**  
 
 **#according to cities list check, there are two cities name repeated. They are "BANGALORE（70687）" & "BENGALURU（1885）" where are New and old names**  
 **#Unify the same city name**  
-df_Fact1_clean2['CustLocation'] = df_Fact1_clean2['CustLocation'].replace('BENGALURU', 'BANGALORE')  
+```python
+df_Fact1_clean2['CustLocation'] = df_Fact1_clean2['CustLocation'].replace('BENGALURU', 'BANGALORE')
+```
 
 **#Display the 5 top Locations**  
+```python
 query = """  
 SELECT CustLocation, COUNT(*) AS transaction_count  
 FROM transactions  
 GROUP BY CustLocation  
 ORDER BY transaction_count DESC  
 LIMIT 5  
-"""  
-
+"""
+```
+```python
 top_locations = pd.read_sql_query(query, conn)  
 print(top_locations)  
-
+```  
 **#output**  
   CustLocation  transaction_count  
 0       MUMBAI              86281  
